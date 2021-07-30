@@ -6,7 +6,7 @@ import {protect,checkScopes} from '../middleware/authMiddleware'
 // @desc    - GET ALL USER
 // @route   - GET /user
 //@access   - SCOPES['user-get']
-router.get('/',protect, checkScopes, getUsers)
+router.get('/',protect,checkScopes('user-get'), getUsers)
 
 // @desc    - SIGN UP
 // @route   - POST /user/signup
@@ -21,6 +21,6 @@ router.post('/signin',authUser )
 // @desc    - GET SINGLE USER
 // @route   - GET /user/:id
 //@access   - SCOPES['user-get']
-router.get('/:id',protect,checkScopes, getUserById)
+router.get('/:id',protect,checkScopes('user-get'), getUserById)
 
 export default router

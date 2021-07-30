@@ -8,7 +8,7 @@ import {protect,checkScopes} from '../middleware/authMiddleware'
 // @desc    - Fetch all roles
 // @route   - GET /role
 //@access   - SCOPES['role-get'] 
-router.get('/',protect, checkScopes, getRoles)
+router.get('/',protect, checkScopes('role-get'), getRoles)
 
 // @desc    - create role
 // @route   - POST /role
