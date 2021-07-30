@@ -1,6 +1,7 @@
-export type Role = {
-    name: string;
-    scopes: string[];
+
+export interface Role {
+    name: string,
+    scopes: string[]
 }
 
 

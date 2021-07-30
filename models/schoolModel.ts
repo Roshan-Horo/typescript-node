@@ -1,5 +1,5 @@
 
-export type School = {
+export interface School {
     
     name: string;
     city: string;

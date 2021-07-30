@@ -15,7 +15,8 @@ const createSchool = async (req: Request, res: Response) => {
 
       res.status(201).send(createdSchool)
     } catch (error) {
-        console.log("Error: ",error)
+        res.status(400).send({})
+        throw new Error('School not Created')
     }
 
 }
@@ -26,14 +27,43 @@ const getSchools =  async (req: Request, res: Response) => {
 
     const schools = await cursor.toArray()
     
-    schools.map( school => console.log(school))
-    
-    res.send(schools)
+    const response = {
+        "status": true,
+        "content": {
+            "data": schools
+        }
+    }
+    res.send(response)
+}
+
+const getSchoolStudents = async (req: Request,res: Response) => {
+    //  const schools = await School.find({})
+    //  const students = await Student.find({})
+
+     const cursor = await client.db("tifProject").collection("school").aggregate([
+        { "$addFields": { "schoolId": { "$toString": "$_id" }}},
+        { "$lookup": {
+            "from": "student",
+            "localField": "schoolId",
+            "foreignField": "schoolId",
+            "as": "students"
+        }}
+        ])
+
+    const schoolStudents =  await cursor.toArray()
+
+     if(schoolStudents){
+         res.json({"status": true,"content": {"data": schoolStudents}})
+     }else{
+         res.status(401)
+         throw new Error('query fail')
+     }
 }
 
 export {
     createSchool,
-    getSchools
+    getSchools,
+    getSchoolStudents
 }
 
 

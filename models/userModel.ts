@@ -1,10 +1,24 @@
-export type User = {
+export interface User {
     first_name: string,
     last_name: string,
     email: string,
     mobile: string,
     password: string,
     roleId: string
+}
+
+export interface resUser {
+    _id: string,
+    first_name: string,
+    last_name: string,
+    email: string,
+    mobile: string,
+    roleId: string,
+    roles: {
+        _id: string,
+        name: string,
+        scopes: string[]
+    }[]
 }
 
 

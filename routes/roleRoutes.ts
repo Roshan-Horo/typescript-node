@@ -3,12 +3,12 @@ const router = express.Router()
 
 // Import controller files
 import {getRoles, createRole} from '../controller/roleController'
-// import {protect,checkScopes} from '../middleware/authMiddleware.js'
+import {protect,checkScopes} from '../middleware/authMiddleware'
 
 // @desc    - Fetch all roles
 // @route   - GET /role
 //@access   - SCOPES['role-get'] 
-router.get('/',getRoles)
+router.get('/',protect, checkScopes, getRoles)
 
 // @desc    - create role
 // @route   - POST /role
